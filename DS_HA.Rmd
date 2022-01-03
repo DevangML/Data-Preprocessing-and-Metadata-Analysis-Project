@@ -1,0 +1,110 @@
+---
+title: "DS_HA"
+author: "Devang"
+date: "1/3/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## In this assignment we will do exploratory data analysis and hypothesis testing on covid19 dataset that we have got.
+### In this dataset there are 20 variables with all the variables indicating some kind of trend in COVID cases.
+
+![](https://cdn.pixabay.com/photo/2020/05/15/18/46/corona-5174671_960_720.jpg)
+
+## Variable Description
+### Legend : FIPS - Federal Information Processing Series
+* Date as of : Date when the data was added in dataset
+* Start week: Start data of survey
+* End week: End data of survey
+* State: State of subject
+* County: County of subject
+* Urban rural code: Rural-Urban Continuum Codes form a classification scheme that distinguishes metropolitan (metro) counties by the population size of their metro area, and nonmetropolitan (nonmetro) counties by degree of urbanization and adjacency to a metro area or areas
+* FIPS State: FIPS state codes were numeric and two-letter alphabetic codes defined in U.S. Federal Information Processing Standard Publication ("FIPS PUB") 5-2 to identify U.S. states and certain other associated areas. ... The codes are used in Geographic Names Information System, overseen by the U.S. Board on Geographic Names.
+* FIPS County: The Federal Information Processing Standard Publication 6-4 (FIPS 6-4) is a five-digit Federal Information Processing Standards code which uniquely identified counties and county equivalents in the United States, certain U.S. possessions, and certain freely associated states.
+* FIPS Code: FIPS codes are numbers which uniquely identify geographic areas. The number of digits in FIPS codes vary depending on the level of geography
+* Indicator: There are three survey patterns that are conducted for constructing this dataset on each county : Distribution of all-cause deaths (%), Distribution of COVID-19 deaths (%), Distribution of population (%)
+* Total Deaths: Total deaths in the span of the survey
+* COVID-19 Deaths: Deaths due to COVID-19
+* Non-Hispanic White: Non-Hispanic whites are European Americans, Middle Eastern Americans, and North African Americans as defined by the United States Census Bureau. 
+* Non-Hispanic Black: A person having origins in any of the black racial groups of Africa
+* Non-Hispanic American Indian or Alaska Native: The term 'Alaska Native' are used in place of the word 'Indian' to include all indigenous people in Alaska.
+* Non-Hispanic Asian:A person having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian Subcontinent.
+* Other: Groups not identified by any category
+* Hispanic: A Spanish-speaking person, especially one of Latin American descent, living in the US.
+* Urban Rural Description: The type and scale of urbanization of an area e.g. metro, small metro, etc.
+* Footnote: An additional piece of information printed at the bottom of a page.
+
+![](https://cdn.pixabay.com/photo/2021/04/10/00/51/vaccine-6165772_960_720.jpg)
+
+## Survey Description
+### The survey conducted for building the dataset was done to infer the following:
+* To show the trend of COVID-19 increase with time
+* To monitor which counties have more spread of infection and which have less so as to prioritize the resources and medical response
+* To establish a relation between urban/rural areas and COVID-19 infection
+* To observe which groups of people among the vast variety of human population catches the infection more and why
+
+## Metadata
+
+## What we are doing 
+### We are going to setup a hypothesis test between urban rural description and covid-19 deaths variables; also we will see if there is any relationship between ‘Distribution of all-cause death(%)' and ‘Distribution of Covid-19 death(%)
+
+* Part 1 - Hypothesis Testing
+## Setting up hypotheses
+
+## H₀ Null Hypothesis
+### The null hypothesis is that urban rural description has no effect on covid-19 deaths
+
+
+
+## Hₐ Alternate Hypothesis
+### The alternate hypothesis is that urban rural description has a profound impact on covid-19 deaths where more urban counties mostly will have higher number of COVID-19 related deaths 
+
+## R Code for hypothesis testing
+
+```{r}
+
+#Read Csv file
+hp <- read.csv("covid19_county_deaths.csv",header=TRUE)
+head(hp)
+```
+
+```{r}
+x_bar_desc <- mean(hp$Urban Rural Description,na.rm=FALSE)
+cat("Sample mean X_bar for Urban Rural Description =",x_bar_desc,"\n")
+```
+
+```{r}
+x_bar_covid <- mean(hp$COVID-19 Deaths,na.rm=FALSE)
+cat("Sample mean X_bar for Covid19 Deaths =",x_bar_covid,"\n")
+```
+
+```{r}
+s_sd_desc<- sd(hp$Urban Rural Description,na.rm=FALSE)
+cat("Sample Standard deviation (s) for urban rural description s_sd_desc=",s_sd,"\n")
+```
+
+```{r}
+s_sd_covid<- sd(hp$COVID-19 Deaths,na.rm=FALSE)
+cat("Sample Standard deviation (s) for covid 19 deaths s_sd=",s_sd_covid,"\n")
+```
+
+n<-952
+cat("Number of samples n = ",n,"\n")
+
+mue<-10000
+cat("Mean life claimed by manufacturer mue = ",mue,"\n")
+
+SE_desc<- s_sd_desc/sqrt(n)
+cat("Standard Error SE for urban rural description= ",SE,"\n")
+
+SE_covid<- s_sd_covid/sqrt(n)
+cat("Standard Error SE for covid 19 deaths= ",SE,"\n")
+
+Zee_Score<- (x_bar-mue)/SE
+cat("Zee_Score= ",Zee_Score,"\n")
+
+p<- pnorm(Zee_Score,0,1,lower.tail=TRUE)
+cat("P- value of distribution p = ",p,"\n")
