@@ -48,6 +48,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Metadata
 
+The dataset was provided by teacher
+
+1. Urban-Rural Description : For this variable there are no units as it is categorical data, for hypothesis testing we used mean/median. 
+2. COVID-19 Deaths: It is numerical data without units, for hypothesis testing we used mean/median.
+3. Distribution of all-cause death(%): Unit here is percentage 
+4. Distribution of Covid-19 death(%): Unit here is percentage
+
 ## What we are doing 
 ### We are going to setup a hypothesis test between urban rural description and covid-19 deaths variables; also we will see if there is any relationship between ‘Distribution of all-cause death(%)' and ‘Distribution of Covid-19 death(%)
 
@@ -67,44 +74,20 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 
 #Read Csv file
-hp <- read.csv("covid19_county_deaths.csv",header=TRUE)
+hp <- read.csv("covid.csv")
 head(hp)
 ```
 
 ```{r}
-x_bar_desc <- mean(hp$Urban Rural Description,na.rm=FALSE)
-cat("Sample mean X_bar for Urban Rural Description =",x_bar_desc,"\n")
+
+urd <- hp$urd
+c19d <- hp$c19d
+
+df <- data.frame(urd,c19d)
+
+head(df)
+
 ```
 
-```{r}
-x_bar_covid <- mean(hp$COVID-19 Deaths,na.rm=FALSE)
-cat("Sample mean X_bar for Covid19 Deaths =",x_bar_covid,"\n")
-```
+## Conclusions:
 
-```{r}
-s_sd_desc<- sd(hp$Urban Rural Description,na.rm=FALSE)
-cat("Sample Standard deviation (s) for urban rural description s_sd_desc=",s_sd,"\n")
-```
-
-```{r}
-s_sd_covid<- sd(hp$COVID-19 Deaths,na.rm=FALSE)
-cat("Sample Standard deviation (s) for covid 19 deaths s_sd=",s_sd_covid,"\n")
-```
-
-n<-952
-cat("Number of samples n = ",n,"\n")
-
-mue<-10000
-cat("Mean life claimed by manufacturer mue = ",mue,"\n")
-
-SE_desc<- s_sd_desc/sqrt(n)
-cat("Standard Error SE for urban rural description= ",SE,"\n")
-
-SE_covid<- s_sd_covid/sqrt(n)
-cat("Standard Error SE for covid 19 deaths= ",SE,"\n")
-
-Zee_Score<- (x_bar-mue)/SE
-cat("Zee_Score= ",Zee_Score,"\n")
-
-p<- pnorm(Zee_Score,0,1,lower.tail=TRUE)
-cat("P- value of distribution p = ",p,"\n")
