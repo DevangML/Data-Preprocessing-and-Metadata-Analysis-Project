@@ -54,6 +54,8 @@ The dataset was provided by teacher
 2. COVID-19 Deaths: It is numerical data without units, for hypothesis testing we used mean/median.
 3. Distribution of all-cause death(%): Unit here is percentage 
 4. Distribution of Covid-19 death(%): Unit here is percentage
+5. There are some footnotes for some rows for all features
+6. In many rows data based on counts less than 10 is suppressed
 
 ## What we are doing 
 ### We are going to setup a hypothesis test between urban rural description and covid-19 deaths variables; also we will see if there is any relationship between ‘Distribution of all-cause death(%)' and ‘Distribution of Covid-19 death(%)
@@ -62,14 +64,20 @@ The dataset was provided by teacher
 ## Setting up hypotheses
 
 ## H₀ Null Hypothesis
-### The null hypothesis is that urban rural description has no effect on covid-19 deaths
+### The null hypothesis urban areas project at least 700 COVID-19 deaths
 
 
 
 ## Hₐ Alternate Hypothesis
-### The alternate hypothesis is that urban rural description has a profound impact on covid-19 deaths where more urban counties mostly will have higher number of COVID-19 related deaths 
+### The alternate hypothesis is that urban areas have no significant impact on rise in COVID-19 deaths
 
 ## R Code for hypothesis testing
+
+```{r}
+# Library Imports section
+
+library(ggplot2)
+```
 
 ```{r}
 
@@ -89,5 +97,95 @@ head(df)
 
 ```
 
-## Conclusions:
+```{r}
+
+mean_deaths <- mean(df$c19d)
+mean_deaths
+
+```
+```{r}
+standardDeviation <- sd(df$c19d)
+standardDeviation
+```
+
+
+```{r}
+n <- 5
+```
+
+```{r}
+expected_deaths <- 700
+```
+
+
+```{r}
+se <- standardDeviation/sqrt(n)
+
+zScore <- (mean_deaths - expected_deaths)/se
+zScore
+
+p1<-pnorm(zScore,0,1)
+p1
+
+# if p1 < 0.05 reject null hypothesis
+```
+
+## Data Visualization
+
+```{r}
+
+# Box Plot for Urban Rural Description and COVID 19 Deaths
+
+ggplot(data = df,aes(x = urd , y = c19d )) +
+    geom_jitter(alpha = 0.1, color = "tomato") +
+    geom_boxplot(alpha = 0)  
+
+# Scatter plots
+
+ggplot(df, aes(x=urd, y=c19d)) +
+  geom_point(size=2, shape=23)
+
+# Add marginal rugs
+ggplot(df, aes(x=urd, y=c19d), color="cyl") +
+  geom_point() + geom_rug()
+
+
+```
+
+
+## Let us analyze now the association between Distribution of all-cause deaths (%) and Distribution of COVID-19 deaths (%)
+
+### We see that there is a difference between Distribution of all-cause deaths (%) and Distribution of COVID-19 deaths (%) w.r.t the different groups of US population like Hispanic and Non-Hispanic. 
+
+### Though there is no clear trend here as for some kinds of people in certain regions the percentage of covid 19 deaths may be greater indicating total deaths in population is majorly due to COVID-19 and in some cases it is less indicating that other factors contribute more to the deaths.
+
+
+## Excel/CSV Data Analysis
+### In this section we have included some data analysis pictures done in excel relating to this database
+
+![](./assets/c19d.png)  
+<br>
+<br>
+<br>
+<br>
+![](./assets/urcc19d.png)  
+<br>
+<br>
+<br>
+<br>
+![](./assets/urdc19d.png)  
+<br>
+<br>
+<br>
+<br>
+![](./assets/ftd.png)  
+<br>
+<br>
+<br>
+<br>
+
+
+## Conclusions
+
+### We infer from this assignment that the urban areas of USA have shown more tendancy for covid19 related deaths overtime and there is an association between Distribution of all-cause deaths (%) and Distribution of COVID-19 deaths (%) which tells us if in a group of US population COVId19 is the major reason for deaths or not.
 
