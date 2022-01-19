@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = TRUE)
 * Start week: Start data of survey
 * End week: End data of survey
 * State: State of subject
-* County: County of subject
+* County Name: County of subject
 * Urban rural code: Rural-Urban Continuum Codes form a classification scheme that distinguishes metropolitan (metro) counties by the population size of their metro area, and nonmetropolitan (nonmetro) counties by degree of urbanization and adjacency to a metro area or areas
 * FIPS State: FIPS state codes were numeric and two-letter alphabetic codes defined in U.S. Federal Information Processing Standard Publication ("FIPS PUB") 5-2 to identify U.S. states and certain other associated areas. ... The codes are used in Geographic Names Information System, overseen by the U.S. Board on Geographic Names.
 * FIPS County: The Federal Information Processing Standard Publication 6-4 (FIPS 6-4) is a five-digit Federal Information Processing Standards code which uniquely identified counties and county equivalents in the United States, certain U.S. possessions, and certain freely associated states.
@@ -56,6 +56,28 @@ The dataset was provided by teacher
 4. Distribution of Covid-19 death(%): Unit here is percentage
 5. There are some footnotes for some rows for all features
 6. In many rows data based on counts less than 10 is suppressed
+
+### Datatypes:
+
+* Date as of : date, Quantitative
+* Start week: date, Quantitative
+* State: String, Qualitative
+* County Name: String, Qualitative
+* Urban rural code: Integer, Qualitative
+* FIPS State: Integer, Qualitative
+* FIPS County: Integer, Qualitative
+* FIPS Code: Integer, Qualitative
+* Indicator: String, Quantitative
+* Total Deaths: Integer, Quantitative
+* COVID-19 Deaths:Integer,Quantitative
+* Non-Hispanic White: Float, Quantitative
+* Non-Hispanic Black: Float, Quantitative
+* Non-Hispanic American Indian or Alaska Native: Float, Quantitative
+* Non-Hispanic Asian: Float, Quantitative
+* Other: Float, Quantitative
+* Hispanic: Float, Quantitative
+* Urban Rural Description: String, Qualitative 
+* Footnote: String, Qualitative
 
 ## What we are doing 
 ### We are going to setup a hypothesis test between urban rural description and covid-19 deaths variables; also we will see if there is any relationship between ‘Distribution of all-cause death(%)' and ‘Distribution of Covid-19 death(%)
